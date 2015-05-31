@@ -98,6 +98,7 @@ class Json extends MX_Controller {
 
 	function show_students_absence($id_etudiant){
 
+
 		if($this->json_model->get_students_courses_missed($id_etudiant)){
 
 			$get_info_coursesMissed=$this->json_model->get_students_courses_missed($id_etudiant);
@@ -111,8 +112,83 @@ class Json extends MX_Controller {
 
 		}
 
-	}
+    }
 
+
+    function show_students_coming_late($id_etudiant){
+
+
+		if($this->json_model->get_students_courses_coming_late($id_etudiant)){
+
+			$get_info_courses_coming_late=$this->json_model->get_students_courses_coming_late($id_etudiant);
+			echo json_encode(array(
+		                                        'result' =>1,
+		                                        'courses_coming_late' =>$get_info_courses_coming_late,
+
+		                                        
+		                                        )
+		                                    );
+
+		}
+	
+    }
+
+    function show_class_schedule($class_id){
+
+		if($this->json_model->get_class_schedule($class_id)){
+
+			$get_class_schedule=$this->json_model->get_class_schedule($class_id);
+			echo json_encode(array(
+		                                        'result' =>1,
+		                                        'class_schedule_infos' =>$get_class_schedule,
+
+		                                        
+		                                        )
+		                                    );
+
+		}
+
+    }
+
+    function show_class_events($class_id){
+
+		if($this->json_model->get_class_events($class_id)){
+
+			$get_class_events=$this->json_model->get_class_events($class_id);
+			echo json_encode(array(
+		                                        'result' =>1,
+		                                        'events' =>$get_class_events,
+
+		                                        
+		                                        )
+		                                    );
+
+		}
+
+    }
+
+    function show_student_balance_sheet($student_id){
+
+		if($this->json_model->get_student_balance_sheet($student_id)){
+
+			$get_student_balance_sheet=$this->json_model->get_student_balance_sheet($student_id);
+			echo json_encode(array(
+		                                        'result' =>1,
+		                                        'balance_sheets' =>$get_student_balance_sheet,
+
+		                                        
+		                                        )
+		                                    );
+
+		}
+
+    }
+
+
+    
+
+
+ }
 
   
-}
+ 

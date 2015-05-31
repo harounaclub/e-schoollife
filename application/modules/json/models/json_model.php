@@ -48,13 +48,73 @@ class json_model extends CI_Model {
      
    }
 
-   function get_students_courses_missed($id_etudiant)
+   function get_students_courses_missed($student_id)
    {
 
       $this->db->select()->from('etudiants');
-      $this->db->where('id_etudiant',$id_etudiant);
+      $this->db->where('id_etudiant',$student_id);
+      $this->db->where('id_type_absence',1);
       $this->db->join('absences','absences.id_etudiants=etudiants.id_etudiant');
       $this->db->join('heures','heures.id_heures=absences.id_heure');
+     
+      $q = $this->db->get();
+      
+      return $q->result();
+       
+   }
+
+   function get_students_courses_coming_late($student_id)
+   {
+
+      $this->db->select()->from('etudiants');
+      $this->db->where('id_etudiant',$student_id);
+      $this->db->where('id_type_absence',2);
+      $this->db->join('absences','absences.id_etudiants=etudiants.id_etudiant');
+      $this->db->join('heures','heures.id_heures=absences.id_heure');
+     
+      $q = $this->db->get();
+      
+      return $q->result();
+       
+   }
+
+
+   function get_class_schedule($class_id)
+   {
+
+      $this->db->select()->from('emploi_temps');
+      $this->db->where('id_classe',$class_id);
+      $this->db->join('jours','jours.id_jour=emploi_temps.id_jours');
+      $this->db->join('heures','heures.id_heures=emploi_temps.id_horaire');
+      $this->db->join('classes','classes.id_classe=emploi_temps.id_classes');
+      $this->db->join('matieres','matieres.id_matieres=emploi_temps.id_matiere');
+     
+      $q = $this->db->get();
+      
+      return $q->result();
+       
+   }
+
+   function get_class_events($class_id)
+   {
+
+      $this->db->select()->from('evenements');
+      $this->db->where('id_classes',$class_id);
+      
+     
+      $q = $this->db->get();
+      
+      return $q->result();
+       
+   }
+
+
+   function get_student_balance_sheet($student_id)
+   {
+
+      $this->db->select()->from('bilan');
+      $this->db->where('id_etudiants',$student_id);
+      
      
       $q = $this->db->get();
       
